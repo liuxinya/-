@@ -5,7 +5,9 @@
 ## 安装
 
 ```bash
-npm install union-vue-typescript-quick-starter
+git clone https://github.com/zxqian1991/union-vue-typescript-quick-starter.git
+cd union-vue-typescript-quick-starter
+npm install # yarn install
 ```
 
 ## 使用
