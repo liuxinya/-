@@ -1,11 +1,11 @@
-# Vue-TYPESCRIPT-QUICK-STARTER
+# UNION-VUE-TYPESCRIPT-QUICK-STARTER
 
 > use the use with typescript
 
 ## 安装
 
 ```bash
-npm install vue-typescript-quick-starter
+npm install union-vue-typescript-quick-starter
 ```
 
 ## 使用
