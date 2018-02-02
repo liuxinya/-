@@ -1,14 +1,9 @@
 import Vue from 'vue'
 import { Component, Prop} from 'vue-property-decorator'
 import   * as WithRender from './index.html?style=./index.less';
-import { Test } from './test/index';
 @WithRender
-@Component({
-  components: {
-    test: Test
-  }
-})
-export class MyComponent extends Vue {
+@Component
+export class Test extends Vue {
   // 初始数据可以直接声明为实例的属性
   @Prop() qzx: string;
   message: number = 123;
