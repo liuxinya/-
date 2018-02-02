@@ -90,7 +90,12 @@ let webpackConfig = {
                 }
             }, {
                 test: /\.tsx?$/,
-                loader: [ "babel-loader", 'awesome-typescript-loader']
+                use: [ "babel-loader", {
+                    loader: 'awesome-typescript-loader',
+                    options: {
+                        errorsAsWarnings: true
+                    }
+                }]
             }
         ]
     },
