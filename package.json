@@ -61,6 +61,12 @@
     "vue-template-compiler": "^2.5.13",
     "vue-template-loader": "^0.4.0",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack-dev-server": "^2.11.1",
+    "eslint": "^4.11.0",
+    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-typescript": "^0.8.0",
+    "eslint-plugin-vue": "^3.13.1",
+    "typescript-eslint-parser": "^9.0.0",
+    "vue-eslint-parser": "^2.0.1-beta.2"
   }
 }
