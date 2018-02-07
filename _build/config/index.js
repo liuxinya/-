@@ -3,7 +3,7 @@ module.exports = {
     dev: {
         assetsSubDirectory: 'static',
         assetsPublicPath: '',
-        assetsRoot: path.resolve(__dirname, '../dist'),
+        assetsRoot: path.resolve(__dirname, '../../_dist'),
         proxyTable: {},
 
         // Various Dev Server settings
@@ -39,7 +39,7 @@ module.exports = {
     build: {
         assetsSubDirectory: 'static',
         assetsPublicPath: '',
-        assetsRoot: path.resolve(__dirname, '../../dist'),
+        assetsRoot: path.resolve(__dirname, '../../_dist'),
         zip: true,
         productionGzipExtensions: ['js', 'css'],
     }
