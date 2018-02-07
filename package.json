@@ -8,6 +8,7 @@
     "dev": "npm run serve:dev",
     "serve:dev": "cross-env NODE_ENV=development webpack-dev-server --config _build/webpack.config.js --open --progress --profile -d --watch --content-base src/",
     "serve:prod": "cross-env NODE_ENV=production webpack-dev-server --config _build/webpack.config.js --open --progress --profile --watch --content-base src/",
+    "build": "npm run build:prod",
     "build:dev": "rimraf dist && cross-env NODE_ENV=development webpack --config _build/webpack.config.js --progress --profile --bail",
     "build:prod": "rimraf dist && cross-env NODE_ENV=production webpack --config _build/webpack.config.js --progress --profile --bail"
   },
