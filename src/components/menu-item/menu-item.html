@@ -1,0 +1,13 @@
+<div class="menu">
+  <div class="content">
+      <slot></slot>
+      <ul class='chilrenMenu' :class='{isShow: active}'>
+          <li v-on:click='toggle(item, level, index)' :class='{active: item.active}' v-for='(item,index) in childrenData'>
+                <i :class="'iconfont icon ' + item.icon"></i>
+                <span class="title">{{item.title}}</span>
+                <span :class='{isShow: !item.children}' class='iconfont icon-moreunfold arrow'>
+                </span>
+          </li>
+      </ul>
+  </div>
+</div>

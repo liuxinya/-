@@ -1,0 +1,73 @@
+.menu {
+    li {
+        .parent, .child {
+            display: flex;
+            line-height: 16px;
+            padding: 8px;
+            position: relative;
+            .icon {
+                max-width: 16px;
+                max-height: 16px;
+            }
+            .title {
+                font-size: 16px;
+                margin-left: 5px;
+            }
+            &:hover {
+                color: #108ee9;
+                background-color: rgba(208, 208, 208, 0.35);
+            }
+            &::after {
+                content: "";
+                height: 100%;
+                width: 0px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                border-right: 3px solid #108ee9;
+                -webkit-transform: scaleY(.0001);
+                transform: scaleY(.0001);
+                opacity: 0;
+                transition: opacity .15s cubic-bezier(.215, .61, .355, 1), -webkit-transform .15s cubic-bezier(.215, .61, .355, 1);
+                transition: transform .15s cubic-bezier(.215, .61, .355, 1), opacity .15s cubic-bezier(.215, .61, .355, 1);
+                transition: transform .15s cubic-bezier(.215, .61, .355, 1), opacity .15s cubic-bezier(.215, .61, .355, 1), -webkit-transform .15s cubic-bezier(.215, .61, .355, 1);
+            }
+            &.active {
+                background-color: rgba(0, 129, 233, 0.12);
+                color: #108ee9;
+                &::after {
+                    transition: opacity .15s cubic-bezier(.645, .045, .355, 1), -webkit-transform .15s cubic-bezier(.645, .045, .355, 1);
+                    transition: transform .15s cubic-bezier(.645, .045, .355, 1), opacity .15s cubic-bezier(.645, .045, .355, 1);
+                    transition: transform .15s cubic-bezier(.645, .045, .355, 1), opacity .15s cubic-bezier(.645, .045, .355, 1), -webkit-transform .15s cubic-bezier(.645, .045, .355, 1);
+                    opacity: 1;
+                    -webkit-transform: scaleY(1);
+                    transform: scaleY(1);
+                }
+            }
+            .arrow {
+                position: absolute;
+                top: 0;
+                right: 20px;
+                bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all .2s linear;
+                transform: rotateZ(-90deg);
+                img {
+                    max-height: 16px;
+                    max-width: 16px;
+                } 
+                &.isShow {
+                    display: none;
+                }
+                &.active {
+                    transform: rotateZ(0deg);
+                }
+            }
+        }
+        .child {
+            padding-left: 30px;
+        }
+    }
+}

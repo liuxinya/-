@@ -1,0 +1,13 @@
+<div class="menu">
+    <slot></slot>
+    <MenuItem :parentData='menuData' :childrenData='item.children' :active='item.active' :level='index' v-for='(item, index) in menuGroupData'>
+        <ul class='parentMenu'>
+            <li v-on:click='itmeClick(item)' >
+                <i :class="'iconfont icon ' + item.icon"></i>
+                <div class="title">{{item.title}}</div>
+                <span :class='{isShow: !item.children, active: !item.active}' class='iconfont icon-moreunfold arrow'>
+                </span>
+            </li>
+        </ul>
+    </MenuItem>
+</div>
