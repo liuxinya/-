@@ -1,6 +1,6 @@
 .parentMenu {
     padding: 0 10px;
-    li {
+    .item {
         display: flex;
         line-height: 16px;
         padding: 4px 0;
@@ -70,12 +70,9 @@
 .submenu {
     padding-left: 20px;
     transition: all .5s linear;
-}
-.slider-enter-active, .slider-leave-active {
-    transition: opacity .5s;
-  }
-.slider-enter, .slider-leave-to{
-    opacity: 0;
+    &.open {
+        display: none;
+    }
 }
 
 

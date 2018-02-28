@@ -1,18 +1,18 @@
 <div class="menu">
     <MenuItem v-for='(item, index) in menuGroupData'>
         <!-- <slot></slot> -->
-        <ul class='parentMenu'>
-            <li v-on:click='itmeClick(item,index)' :class='{active: item.active}'>
+        <div class='parentMenu'>
+            <div class='item' v-on:click='itmeClick(item,index)' :class='{active: item.active}'>
                 <i :class="'iconfont icon ' + item.icon"></i>
                 <div class="title">{{item.title}}</div>
                 <span :class='{isShow: !item.children, active: !item.open}' class='iconfont icon-moreunfold arrow'>
                 </span>
-            </li>
-        </ul>
-        <transition name='slider'>
-            <div ref='childNode' class="submenu" v-if="item.children && !item.open">
+            </div>
+        </div>
+        <!-- <transition name='slider'> -->
+            <div ref='childNode' class="submenu" v-if="item.children" :class='{open: item.open}'>
                 <MenuGroup :menuData='menuData' :menuGroupData='item.children'></MenuGroup>
             </div>
-        </transition>
+        <!-- </transition> -->
     </MenuItem>
 </div>
