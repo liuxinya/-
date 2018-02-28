@@ -1,6 +1,6 @@
 <div class="menu">
-    <MenuItem :menuGroupData='menuGroupData' :menuItemData='item.children' :active='item.open' :level='index' v-for='(item, index) in menuGroupData'>
-        <slot></slot>
+    <MenuItem v-for='(item, index) in menuGroupData'>
+        <!-- <slot></slot> -->
         <ul class='parentMenu'>
             <li v-on:click='itmeClick(item,index)' :class='{active: item.active}'>
                 <i :class="'iconfont icon ' + item.icon"></i>
@@ -9,5 +9,10 @@
                 </span>
             </li>
         </ul>
+        <transition name='slider'>
+            <div ref='childNode' class="submenu" v-if="item.children && !item.open">
+                <MenuGroup :menuData='menuData' :menuGroupData='item.children'></MenuGroup>
+            </div>
+        </transition>
     </MenuItem>
 </div>

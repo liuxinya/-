@@ -1,8 +1,9 @@
 .parentMenu {
+    padding: 0 10px;
     li {
         display: flex;
         line-height: 16px;
-        padding: 4px 0 4px 30px;
+        padding: 4px 0;
         position: relative;
         .icon {
             max-width: 16px;
@@ -66,3 +67,15 @@
         }
     }
 }
+.submenu {
+    padding-left: 20px;
+    transition: all .5s linear;
+}
+.slider-enter-active, .slider-leave-active {
+    transition: opacity .5s;
+  }
+.slider-enter, .slider-leave-to{
+    opacity: 0;
+}
+
+

@@ -2,14 +2,10 @@ import Vue from 'vue'
 import { Component, Prop} from 'vue-property-decorator'
 import { MenuGroup } from './menu-group/menu-group'
 import   * as WithRender from './index.html?style=./index.less';
-import { MenuTest } from './menu-test/menu-test';
-import { Menu } from './menu/menu'
 @WithRender
 @Component({
   components: {
-    MenuGroup,
-    Menu,
-    MenuTest
+    MenuGroup
   }
 })
 export class MyComponent extends Vue {
@@ -45,20 +41,20 @@ export class MyComponent extends Vue {
               "router": "all",
               "icon": "icon-cart",
               "component": "UnionDownloadCenterOfAllDownloadComponent",
-              // "children": [
-              //   {
-              //       "title": "十里桃花",
-              //       "router": "all",
-              //       "icon": "icon-cart",
-              //       "component": "UnionDownloadCenterOfAllDownloadComponent"
-              //   },
-              //   {
-              //       "title": "嘟嘟嘟",
-              //       "router": "all",
-              //       "icon": "icon-cart",
-              //       "component": "UnionDownloadCenterOfAllDownloadComponent"
-              //   },
-              // ]
+              "children": [
+                {
+                    "title": "十里桃花",
+                    "router": "all",
+                    "icon": "icon-cart",
+                    "component": "UnionDownloadCenterOfAllDownloadComponent"
+                },
+                {
+                    "title": "嘟嘟嘟",
+                    "router": "all",
+                    "icon": "icon-cart",
+                    "component": "UnionDownloadCenterOfAllDownloadComponent"
+                },
+              ]
           }
       ]
     },
