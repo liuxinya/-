@@ -1,18 +1,14 @@
 <div class="menu">
-    <ul>
-        <li @click.stop='toggle(index,item)' v-for='(item, index) in testData'>
-            <div class="parent">
+    <div class="content">
+        <slot></slot>
+        <ul class='chilrenMenu' :class='{isShow: active}'>
+            <li v-on:click='toggle(item, level, index)' :class='{active: item.active}' v-for='(item,index) in testData'>
                 <i :class="'iconfont icon ' + item.icon"></i>
-                <div class="title">{{item.title}}</div>
-                <span :class='{isShow: !item.children, active: isactive}' class='iconfont icon-moreunfold arrow'>
+                <span class="title">{{item.title}}</span>
+                <span :class='{isShow: !item.children}' class='iconfont icon-moreunfold arrow'>
                 </span>
-            </div>
-            <div class="child" :class='{active: isActive}' v-for='(itemC, indexC) in item.children'>
-                <i :class="'iconfont icon ' + itemC.icon"></i>
-                <div class="title">{{itemC.title}}</div>
-                <span :class='{isShow: !itemC.children}' class='iconfont icon-moreunfold arrow'>
-                </span>
-            </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
+    </div>
 </div>
+      
