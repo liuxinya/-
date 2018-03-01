@@ -68,11 +68,19 @@
     }
 }
 .submenu {
-    padding-left: 20px;
-    transition: all .5s linear;
+    transition: all .3s linear;
+    opacity: 1;
     &.open {
-        display: none;
+        height:0px!important;
+        opacity: 0;
+        transform: rotateX(90deg);
     }
+}
+.slider-enter-active, .slider-leave-active {
+    transition: all .5s;
+}
+.list-enter, .list-leave-to {
+    opacity: 0;
 }
 
 

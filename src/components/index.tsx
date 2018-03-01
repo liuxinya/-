@@ -52,7 +52,23 @@ export class MyComponent extends Vue {
                     "title": "嘟嘟嘟",
                     "router": "all",
                     "icon": "icon-cart",
-                    "component": "UnionDownloadCenterOfAllDownloadComponent"
+                    "component": "UnionDownloadCenterOfAllDownloadComponent",
+                    "children": [
+                      {
+                          "title": "十里桃花",
+                          "router": "all",
+                          "icon": "icon-cart",
+                          "component": "UnionDownloadCenterOfAllDownloadComponent",
+                          "children": [
+                            {
+                                "title": "十里桃花",
+                                "router": "all",
+                                "icon": "icon-cart",
+                                "component": "UnionDownloadCenterOfAllDownloadComponent"
+                            },
+                          ]
+                      },
+                    ]
                 },
               ]
           }
