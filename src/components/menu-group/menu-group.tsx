@@ -11,6 +11,7 @@ import   * as WithRender from './menu-group.html?style=./menu-group.less'
 export class MenuGroup extends Vue {
   @Prop() menuGroupData: any[]; // 当前这一组的对象
   @Prop() menuData: any[];   // 顶级对象
+  level = 0;
   itmeClick(item, index) {
     console.log(item)
     // console.log(index);
@@ -57,9 +58,16 @@ export class MenuGroup extends Vue {
   }
   loopAddAttr(arr){
     arr.forEach((v) => {
+      // 优化  如果已经添加 不需要再重复
+      if(v.open) return;
       Vue.set(v, 'open', true);
       Vue.set(v, 'active', false);
-      if(v.children) this.loopAddAttr(v.children)
+      Vue.set(v,'level',this.level);
+      if(v.children) {
+        this.level ++;   // 下次循环的开始应该是第1层级的开始
+        this.loopAddAttr(v.children)
+        this.level = 0;  // 本次循环完毕 下次又开始重新从第0层级开始
+      }
     })
   }
   mounted() {
