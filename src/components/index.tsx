@@ -97,11 +97,29 @@ export class MyComponent extends Vue {
       "router": "download-center",
     },
   ]
+  dragPreviousDom = null;
   getAttr(item) {
     console.log(item)
   }
+  sendRef(dom) {
+    this.dragPreviousDom = dom;
+    this.darg(this.dragPreviousDom);
+  }
+  darg(dom) {
+    let targetDom = this.$refs.drag;
+    this.$refs.drag['ondragenter'] = function(e) {
+    }
+    this.$refs.drag['ondragover'] = function(e) {
+      e.preventDefault();
+    }
+    this.$refs.drag['ondrop'] = function(e) {
+      targetDom['innerText'] = dom.children[1].innerText;
+    }
+  }
   created() {
-
+  }
+  mounted() {
+    // this.darg(this.dragPreviousDom);
   }
 
   // 组件方法也可以直接声明为实例的方法

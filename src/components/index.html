@@ -1,6 +1,6 @@
 <div>
     <div class="left">
-        <MenuGroup :menuData='menuData' @event='getAttr' :menuGroupData='menuData'></MenuGroup>
+        <MenuGroup :menuData='menuData' @sendRef='sendRef' @event='getAttr' :menuGroupData='menuData'></MenuGroup>
     </div>
-    <div class="right"></div>
+    <div ref='drag' class="right"></div>
 </div>

@@ -21,6 +21,12 @@ export class MenuGroup extends Vue {
   sendItem(item) {
     this.$emit('event', item)
   }
+  mouseDown(index) {
+    this.$emit('sendRef',this.$refs.slider[index])
+  }
+  sendRef(ref) {
+    this.$emit('sendRef',ref)
+  }
   itmeClick(item, index) {
     item.open = !item.open;
     // 当前点击等于children的个数  父元素应该做累加
