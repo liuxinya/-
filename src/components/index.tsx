@@ -46,7 +46,16 @@ export class MyComponent extends Vue {
                     "title": "十里桃花",
                     "router": "all",
                     "icon": "icon-cart",
-                    "component": "UnionDownloadCenterOfAllDownloadComponent"
+                    "component": "UnionDownloadCenterOfAllDownloadComponent",
+                    "children": [
+                      {
+                          "title": "十里桃花1",
+                          "router": "all",
+                          "icon": "icon-cart",
+                          "component": "UnionDownloadCenterOfAllDownloadComponent"
+                      },
+                    ]
+
                 },
                 {
                     "title": "嘟嘟嘟",
@@ -55,7 +64,7 @@ export class MyComponent extends Vue {
                     "component": "UnionDownloadCenterOfAllDownloadComponent",
                     "children": [
                       {
-                          "title": "十里桃花",
+                          "title": "十里桃花2",
                           "router": "all",
                           "icon": "icon-cart",
                           "component": "UnionDownloadCenterOfAllDownloadComponent",
@@ -64,52 +73,21 @@ export class MyComponent extends Vue {
                                 "title": "十里桃花",
                                 "router": "all",
                                 "icon": "icon-cart",
-                                "component": "UnionDownloadCenterOfAllDownloadComponent"
+                                "component": "UnionDownloadCenterOfAllDownloadComponent",
+                                "children": [
+                                  {
+                                      "title": "十里桃花",
+                                      "router": "all",
+                                      "icon": "icon-cart",
+                                      "component": "UnionDownloadCenterOfAllDownloadComponent"
+                                  },
+                                ]
                             },
                           ]
                       },
                     ]
                 },
               ]
-          }
-      ]
-    },
-    {
-      "title": "33333333",
-      "icon": "icon-account",
-      "router": "download-center",
-    },
-  ]
-  testData = [
-    {
-      "title": "1111111",
-      "icon": "icon-account",
-      "router": "download-center",
-      "children": [
-          {
-              "title": "全部文件",
-              "router": "all",
-              "icon": "icon-cart",
-              "component": "UnionDownloadCenterOfAllDownloadComponent"
-          }
-      ]
-    },
-    {
-      "title": "22222222222222",
-      "icon": "icon-account",
-      "router": "download-center",
-      "children": [
-          {
-              "title": "审计日志",
-              "router": "all",
-              "icon": "icon-cart",
-              "component": "UnionDownloadCenterOfAllDownloadComponent"
-          },
-          {
-              "title": "三生三世",
-              "router": "all",
-              "icon": "icon-cart",
-              "component": "UnionDownloadCenterOfAllDownloadComponent"
           }
       ]
     },
