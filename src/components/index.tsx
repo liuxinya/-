@@ -97,6 +97,9 @@ export class MyComponent extends Vue {
       "router": "download-center",
     },
   ]
+  getAttr(item) {
+    console.log(item)
+  }
   created() {
 
   }

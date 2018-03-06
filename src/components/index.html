@@ -1,3 +1,6 @@
 <div>
-    <MenuGroup :menuData='menuData' :menuGroupData='menuData'></MenuGroup>
+    <div class="left">
+        <MenuGroup :menuData='menuData' @event='getAttr' :menuGroupData='menuData'></MenuGroup>
+    </div>
+    <div class="right"></div>
 </div>

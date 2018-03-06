@@ -11,9 +11,17 @@ import   * as WithRender from './menu-group.html?style=./menu-group.less'
 export class MenuGroup extends Vue {
   @Prop() menuGroupData: any[]; // 当前这一组的对象
   @Prop() menuData: any[];   // 顶级对象
-  level = 0;
+  level = 0; 
+  padding = 20; // 不同level距离左边 初始距离
+  // 这个event事件用于给外界暴露 一些属性 
+  // item 是当前点击项 所包含的所有信息
+  event(item) {
+    this.$emit('event', item)
+  }
+  sendItem(item) {
+    this.$emit('event', item)
+  }
   itmeClick(item, index) {
-    // console.log(item)
     item.open = !item.open;
     // 当前点击等于children的个数  父元素应该做累加
     // console.log(this.$refs.slider[index])
@@ -49,7 +57,6 @@ export class MenuGroup extends Vue {
         }
       })
     }else if(item.children && item.open) {
-      // 所有父亲 应该减去当前点击的 num
       domArr.forEach((v) => {
         v.parentNode.dataset.num = parseInt(v.parentNode.dataset.num) - parseInt(this.$refs.slider[index].parentNode.parentNode.dataset.num);
         // 重置当前点击项 所有父级dom的高
@@ -84,8 +91,8 @@ export class MenuGroup extends Vue {
       if(v.open) return;
       Vue.set(v, 'open', true);   //open 用于控制每个父节点的点击状态
       Vue.set(v, 'active', false);  // active 用于控制每个父节点的点击状态
-      Vue.set(v,'level',this.level);  // 层级
-      Vue.set(v, 'padding', this.level * 20);
+      Vue.set(v, 'level',this.level);  // 层级
+      Vue.set(v, 'padding', this.level * this.padding);
       if(v.children) {
         let a = this.level;
         this.level ++;   // 下次循环的开始应该是第1层级的开始
