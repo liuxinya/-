@@ -98,28 +98,44 @@ export class MyComponent extends Vue {
     },
   ]
   dragPreviousDom = null;
+  selDomByCtrl = []; // 存放通过ctrl选择的所有的dom
   getAttr(item) {
     console.log(item)
   }
-  sendRef(dom) {
-    this.dragPreviousDom = dom;
-    this.darg(this.dragPreviousDom);
-  }
-  darg(dom) {
-    let targetDom = this.$refs.drag;
-    this.$refs.drag['ondragenter'] = function(e) {
+  // 这玩意只要点击 就会触发
+  sendRef(dom, item) {
+    if(item.isClick) {  // 多选 拖放 数据
+      this.selDomByCtrl.push(dom)
+      this.drag(this.selDomByCtrl)  
+    }else {
+      this.selDomByCtrl = [];
+      this.dragPreviousDom = dom;   // 单选 拖放 数据
+      this.drag(this.dragPreviousDom);
     }
-    this.$refs.drag['ondragover'] = function(e) {
+    console.log(this.selDomByCtrl)
+  }
+  drag(dom) {
+    let targetDom = this.$refs.drag;
+    targetDom['ondragenter'] = function(e) {
+    }
+    targetDom['ondragover'] = function(e) {
       e.preventDefault();
     }
-    this.$refs.drag['ondrop'] = function(e) {
-      targetDom['innerText'] = dom.children[1].innerText;
+    targetDom['ondrop'] = function(e) {
+      console.log(dom)
+      if(dom.length) {
+        dom.forEach((v) => {
+          targetDom['innerText'] += v.children[1].innerText;
+        })
+      }else {
+        targetDom['innerText'] = dom.children[1].innerText;
+      }
     }
   }
   created() {
   }
   mounted() {
-    // this.darg(this.dragPreviousDom);
+    // this.drag(this.dragPreviousDom);
   }
 
   // 组件方法也可以直接声明为实例的方法

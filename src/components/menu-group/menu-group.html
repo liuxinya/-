@@ -2,7 +2,7 @@
     <MenuItem v-for='(item, index) in menuGroupData' :key="index">
         <!-- <slot></slot> -->
         <div class='parentMenu'>
-            <div ref='slider' class='item' draggable="true" @mousedown='mouseDown(index)' @click='itmeClick(item,index),event(item)' :style="{paddingLeft: item.level * 20 + 'px'}" :class='{active: item.active}'>
+            <div ref='slider' class='item' draggable="true" @mousedown.ctrl='mouseDownCtrl(item, index)' @mousedown='mouseDown(item, index)' @click='itmeClick(item,index),event(item)' :style="{paddingLeft: item.level * 20 + 'px'}" :class='{active: item.active, click: item.isClick}'>
                 <i :class="'iconfont icon ' + item.icon"></i>
                 <div class="title">{{item.title}}</div>
                 <span :class='{isShow: !item.children, active: !item.open}' class='iconfont icon-moreunfold arrow'>
