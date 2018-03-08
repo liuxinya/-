@@ -11,31 +11,51 @@ import   * as WithRender from './menu-group.html?style=./menu-group.less'
 export class MenuGroup extends Vue {
   @Prop() menuGroupData: any[]; // 当前这一组的对象
   @Prop() menuData: any[];   // 顶级对象
-  isReturn = true;
+
+  @Prop() isDrag: boolean = false; // 是否开启拖放 默认否
+  isReturn = true; // 点击事件 是否进行的标志
+  isPass = true;  // mousedown 是否进行的标志
   level = 0; 
+  selDomByCtrl = []; // 存放通过ctrl选择的所有的dom
+  selItemByCtrl = []; // 存放通过ctrl选择的所有的item
   padding = 20; // 不同level距离左边 初始距离
 
   // 这个event事件用于给外界暴露 一些属性 
   // item 是当前点击项 所包含的所有信息
-  event(item) {
-    this.$emit('event', item)
+  async event(item) {
+    if(this.isReturn) {
+      this.$emit('event', item)
+    }else{
+      this.isReturn = true;
+    }
   }
+  // 给外界暴露 当前 item
   sendItem(item) {
     this.$emit('event', item)
   }
   mouseDown(item, index) {
-    this.$emit('sendRef',this.$refs.slider[index],item)
+    if(this.isPass) {
+      this.loopChildrenClick(this.menuData);
+      this.$emit('sendRef',this.$refs.slider[index],item)
+    }else {
+      this.isPass = true;
+    }
   }
   sendRef(ref, item) {
     this.$emit('sendRef', ref, item)
   }
   mouseDownCtrl(item, index) {
     item.isClick = !item.isClick;
-    this.isReturn = false;
+    // 只要用ctrl选择 就不触发 点击事件 和 mousedown事件
+    this.isReturn = false; 
+    this.isPass = false;
+    this.$emit('sendSelInfo', this.$refs.slider[index], item);
+  }
+  sendSelInfo(ref, item) {
+    this.$emit('sendSelInfo', ref, item)
   }
   itmeClick(item, index) {
     if(this.isReturn) {
-      console.log(this.menuData);
       this.loopChildrenClick(this.menuData);
       item.open = !item.open;
       // 当前点击等于children的个数  父元素应该做累加
@@ -128,6 +148,6 @@ export class MenuGroup extends Vue {
     })
   }
   mounted() {
-    console.log(this.$refs.slider)
+    // console.log(this.$refs.slider)
   }
 }

@@ -15,11 +15,11 @@ export class MyComponent extends Vue {
     {
       "title": "1111111",
       "icon": "icon-account",
-      "router": "download-center",
+      "router": "aaaa",
       "children": [
           {
               "title": "全部文件",
-              "router": "all",
+              "router": "bbb",
               "icon": "icon-cart",
               "component": "UnionDownloadCenterOfAllDownloadComponent"
           }
@@ -28,29 +28,29 @@ export class MyComponent extends Vue {
     {
       "title": "22222222222222",
       "icon": "icon-account",
-      "router": "download-center",
+      "router": "ccc",
       "children": [
           {
               "title": "审计日志",
-              "router": "all",
+              "router": "ddd",
               "icon": "icon-cart",
               "component": "UnionDownloadCenterOfAllDownloadComponent"
           },
           {
               "title": "三生三世",
-              "router": "all",
+              "router": "fff",
               "icon": "icon-cart",
               "component": "UnionDownloadCenterOfAllDownloadComponent",
               "children": [
                 {
                     "title": "十里桃花",
-                    "router": "all",
+                    "router": "ggg",
                     "icon": "icon-cart",
                     "component": "UnionDownloadCenterOfAllDownloadComponent",
                     "children": [
                       {
                           "title": "十里桃花1",
-                          "router": "all",
+                          "router": "hhhh",
                           "icon": "icon-cart",
                           "component": "UnionDownloadCenterOfAllDownloadComponent"
                       },
@@ -59,25 +59,25 @@ export class MyComponent extends Vue {
                 },
                 {
                     "title": "嘟嘟嘟",
-                    "router": "all",
+                    "router": "iii",
                     "icon": "icon-cart",
                     "component": "UnionDownloadCenterOfAllDownloadComponent",
                     "children": [
                       {
                           "title": "十里桃花2",
-                          "router": "all",
+                          "router": "jjj",
                           "icon": "icon-cart",
                           "component": "UnionDownloadCenterOfAllDownloadComponent",
                           "children": [
                             {
                                 "title": "十里桃花",
-                                "router": "all",
+                                "router": "kkk",
                                 "icon": "icon-cart",
                                 "component": "UnionDownloadCenterOfAllDownloadComponent",
                                 "children": [
                                   {
                                       "title": "十里桃花",
-                                      "router": "all",
+                                      "router": "lll",
                                       "icon": "icon-cart",
                                       "component": "UnionDownloadCenterOfAllDownloadComponent"
                                   },
@@ -94,25 +94,42 @@ export class MyComponent extends Vue {
     {
       "title": "33333333",
       "icon": "icon-account",
-      "router": "download-center",
+      "router": "mmm",
     },
   ]
   dragPreviousDom = null;
+  isReturn = true;
   selDomByCtrl = []; // 存放通过ctrl选择的所有的dom
-  getAttr(item) {
-    console.log(item)
+  selItemByCtrl = []; // 存放通过ctrl选择的所有的item
+  async getAttr(item) {
+      // this.selDomByCtrl = [];
+      // this.selItemByCtrl= [];
   }
   // 这玩意只要点击 就会触发
   sendRef(dom, item) {
-    if(item.isClick) {  // 多选 拖放 数据
-      this.selDomByCtrl.push(dom)
-      this.drag(this.selDomByCtrl)  
-    }else {
-      this.selDomByCtrl = [];
-      this.dragPreviousDom = dom;   // 单选 拖放 数据
-      this.drag(this.dragPreviousDom);
+      if(this.isReturn) {
+        this.selDomByCtrl = [];
+        this.selItemByCtrl= [];
+        this.dragPreviousDom = dom;   // 单选 拖放 数据
+        this.drag(this.dragPreviousDom);
+      }else {
+        this.isReturn = true;
+      }
+  }
+  sendSelInfo(dom, item) {
+    let a = true;
+    this.selItemByCtrl.forEach( (v) => {
+      if(v.router == item.router) {
+        a = false;
+      }
+    } )
+    if(a) {
+      this.selDomByCtrl.push(dom);
+      this.selItemByCtrl.push(item);
+      console.log(this.selDomByCtrl);
+      this.drag(this.selDomByCtrl);
+      this.isReturn = false;
     }
-    console.log(this.selDomByCtrl)
   }
   drag(dom) {
     let targetDom = this.$refs.drag;
@@ -122,7 +139,6 @@ export class MyComponent extends Vue {
       e.preventDefault();
     }
     targetDom['ondrop'] = function(e) {
-      console.log(dom)
       if(dom.length) {
         dom.forEach((v) => {
           targetDom['innerText'] += v.children[1].innerText;
@@ -130,6 +146,8 @@ export class MyComponent extends Vue {
       }else {
         targetDom['innerText'] = dom.children[1].innerText;
       }
+      this.selDomByCtrl = [];
+      this.selItemByCtrl= [];
     }
   }
   created() {
