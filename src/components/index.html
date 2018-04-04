@@ -1,6 +1,12 @@
-<div>
+<div class='index-page'>
     <div class="left">
-        <MenuGroup :menuData='menuData' @sendSelInfo='sendSelInfo' @sendRef='sendRef' @event='getAttr' :menuGroupData='menuData'></MenuGroup>
+        <div class='right-border'></div>
+        <MenuGroup :menuData='menuData' :menuGroupData='menuData'></MenuGroup>
     </div>
-    <div ref='drag' class="right"></div>
+    <div ref='drag' class="right">
+        <div class="right-top">上上上上上上上上</div>
+        <div class="right-bottom">
+            <div class="test"></div>
+        </div>
+    </div>
 </div>

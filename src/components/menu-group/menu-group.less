@@ -5,6 +5,7 @@
         line-height: 16px;
         padding: 4px 0;
         position: relative;
+        -webkit-user-select:none;
         .icon {
             max-width: 16px;
             max-height: 16px;
@@ -50,24 +51,21 @@
             color: #108ee9
         }
         .arrow {
-            position: absolute;
-            top: 0;
-            right: 20px;
-            bottom: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all .2s linear;
-            transform: rotateZ(-90deg);
+            transform: rotateZ(0deg);
             img {
                 max-height: 16px;
                 max-width: 16px;
             } 
             &.isShow {
                 display: none;
+                // color: #fff;
             }
             &.active {
-                transform: rotateZ(0deg);
+                transform: rotateZ(45deg);
             }
         }
     }

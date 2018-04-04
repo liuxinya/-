@@ -1,12 +1,12 @@
 <div class="menu">
     <MenuItem v-for='(item, index) in menuGroupData' :key="index">
         <!-- <slot></slot> -->
-        <div class='parentMenu'>
-            <div ref='slider' class='item' draggable="true" @mousedown.ctrl='mouseDownCtrl(item, index)' @mousedown='mouseDown(item, index)' @click='itmeClick(item,index),event(item)' :style="{paddingLeft: item.level * 20 + 'px'}" :class='{active: item.active, click: item.isClick}'>
+        <div class='parentMenu' :data-dom-id='item.router'>
+            <div ref='slider' class='item' :draggable="isDrag" @mousedown.ctrl='mouseDownCtrl(item, index)' @mousedown='mouseDown(item, index)' @click='itmeClick(item,index),event(item)' :style="{paddingLeft: item.level * 25 + 'px'}" :class='{active: item.active, click: item.isClick}'>
+                <span :class='{isShow: !item.children, active: !item.open}' class='iconfont icon-msnui-triangle-right arrow'>
+                </span>
                 <i :class="'iconfont icon ' + item.icon"></i>
                 <div class="title">{{item.title}}</div>
-                <span :class='{isShow: !item.children, active: !item.open}' class='iconfont icon-moreunfold arrow'>
-                </span>
             </div>
         </div>
         <div class="submenu" :style="{height: 24* item.children.length + 'px'}" v-if="item.children" :class='{open: item.open}'>

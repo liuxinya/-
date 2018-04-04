@@ -11,6 +11,7 @@ import   * as WithRender from './menu-group.html?style=./menu-group.less'
 export class MenuGroup extends Vue {
   @Prop() menuGroupData: any[]; // 当前这一组的对象
   @Prop() menuData: any[];   // 顶级对象
+
   @Prop() isDrag: boolean; // 是否开启拖放 默认否
   isReturn = true; // 点击事件 是否进行的标志
   isPass = true;  // mousedown 是否进行的标志
@@ -18,9 +19,7 @@ export class MenuGroup extends Vue {
   selDomByCtrl = []; // 存放通过ctrl选择的所有的dom
   selItemByCtrl = []; // 存放通过ctrl选择的所有的item
   padding = 20; // 不同level距离左边 初始距离
-	flag = true;
-	toolTipDom = null;
-	moveTargetItem = null; // 移动到元素  该元素对应的item项
+
   // 这个event事件用于给外界暴露 一些属性 
   // item 是当前点击项 所包含的所有信息
   async event(item) {
@@ -35,23 +34,25 @@ export class MenuGroup extends Vue {
     this.$emit('event', item)
   }
   mouseDown(item, index) {
-    // this.$refs.slider[index].ondragstart = () => {
-    //   window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
-    //   console.log(11111111111)
-		// }
-		this.domMove(item, index);
-    // if(this.isPass) {
-    //   this.loopChildrenClick(this.menuData);
-    //   this.$emit('sendRef',this.$refs.slider[index],item)
-    // }else {
-    //   this.isPass = true;
-    // }
+    this.$refs.slider[index].ondragstart = function(e) {
+      // var img = new Image();
+      // img.src='../../assets/plane.jpg';
+      // img.style.width='10px';
+      // img.style.height='10px';
+      // e.dataTransfer.setDragImage(img, 50, 12);
+    }
+    if(this.isPass) {
+      this.loopChildrenClick(this.menuData);
+      this.$emit('sendRef',this.$refs.slider[index],item)
+    }else {
+      this.isPass = true;
+    }
   }
   sendRef(ref, item) {
     this.$emit('sendRef', ref, item)
   }
-  mouseDownCtrl(item, index) 
-  {
+  mouseDownCtrl(item, index) {
+    let flag = true;
     item.isClick = !item.isClick;
     // 只要用ctrl选择 就不触发 点击事件 和 mousedown事件
     this.isReturn = false; 
@@ -62,7 +63,6 @@ export class MenuGroup extends Vue {
     this.$emit('sendSelInfo', ref, item)
   }
   itmeClick(item, index) {
-		console.log(index)
     if(this.isReturn) {
       this.loopChildrenClick(this.menuData);
       item.open = !item.open;
@@ -136,7 +136,6 @@ export class MenuGroup extends Vue {
     })
   }
   created() {
-		console.log(this.menuData))
     this.loopAddAttr(this.menuData);
   }
   loopAddAttr(arr){
@@ -158,54 +157,5 @@ export class MenuGroup extends Vue {
   }
   mounted() {
     // console.log(this.$refs.slider)
-	}
-	domMove(item, index) {
-		document.onmousemove = (e) => {
-			if(this.flag) {
-				this.toolTipDom = document.createElement("div");
-				this.toolTipDom.classList.add('toolTipDom')
-				this.toolTipDom.innerText = this.$refs.slider[index].children[2].innerText;
-				this.toolTipDom.style.position = 'fixed';
-				this.toolTipDom.style.zIndex = 999;
-				document.body.appendChild(this.toolTipDom);
-			}
-			// 进入目标元素 如果是关闭状态  需要打开
-			this.findMenuItem(this.menuData, this.findTargetDom(e.path).dataset.domId)
-			console.log(this.moveTargetItem)
-			if(this.moveTargetItem.open) {
-				// console.log(e.path)
-				// console.log(this.findTargetDom(e.path).dataset.domId)
-				// console.log(this.findTargetDom(e.path).dataset.domIndex)
-				this.itmeClick(this.moveTargetItem, this.findTargetDom(e.path).dataset.domIndex)
-			}
-			this.toolTipDom.style.left = e.clientX + 15 + 'px';
-			this.toolTipDom.style.top = e.clientY + 'px';
-			this.flag = false;
-    }
-    document.onmouseup = (e) => {
-			this.flag = true;
-			if(document.querySelector('.toolTipDom')) {
-				document.body.removeChild(document.querySelector('.toolTipDom'))
-			}
-			// console.log(e)
-      document.onmousemove = null;
-    }
-	}
-	findMenuItem(arr, router) {
-		for(let i = 0; i < arr.length; i ++) {
-			if(arr[i].router == router) {
-				this.moveTargetItem = arr[i]
-			}
-      if(arr[i].children) {
-        this.findMenuItem(arr[i].children, router);
-      }
-		 }
-	}
-	findTargetDom(arr) {
-    for(let i = 0; i < arr.length; i ++) {
-			if(arr[i].classList.contains('parentMenu')) {
-				return arr[i]
-			}
-		 }
-	}
+  }
 }

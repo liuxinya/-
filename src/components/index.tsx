@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { Component, Prop} from 'vue-property-decorator'
 import { MenuGroup } from './menu-group/menu-group'
 import   * as WithRender from './index.html?style=./index.less';
+import { swiper } from '../service/swiper-left.service';
 @WithRender
 @Component({
   components: {
@@ -101,62 +102,53 @@ export class MyComponent extends Vue {
   isReturn = true;
   selDomByCtrl = []; // 存放通过ctrl选择的所有的dom
   selItemByCtrl = []; // 存放通过ctrl选择的所有的item
-  async getAttr(item) {
-      // this.selDomByCtrl = [];
-      // this.selItemByCtrl= [];
-  }
+  domLeftOffsetW: number = 0;
+  domRightOffsetL: number = 0;
+  bottomDivH: number = 0;
+  bottomDivT: number = 0;
   // 这玩意只要点击 就会触发
   sendRef(dom, item) {
-      if(this.isReturn) {
-        this.selDomByCtrl = [];
-        this.selItemByCtrl= [];
-        this.dragPreviousDom = dom;   // 单选 拖放 数据
-        this.drag(this.dragPreviousDom);
-      }else {
-        this.isReturn = true;
-      }
   }
   sendSelInfo(dom, item) {
-    let a = true;
-    this.selItemByCtrl.forEach( (v) => {
-      if(v.router == item.router) {
-        a = false;
-      }
-    } )
-    if(a) {
-      this.selDomByCtrl.push(dom);
-      this.selItemByCtrl.push(item);
-      console.log(this.selDomByCtrl);
-      this.drag(this.selDomByCtrl);
-      this.isReturn = false;
-    }
-  }
-  drag(dom) {
-    let targetDom = this.$refs.drag;
-    targetDom['ondragenter'] = function(e) {
-    }
-    targetDom['ondragover'] = function(e) {
-      e.preventDefault();
-    }
-    targetDom['ondrop'] = function(e) {
-      if(dom.length) {
-        dom.forEach((v) => {
-          targetDom['innerText'] += v.children[1].innerText;
-        })
-      }else {
-        targetDom['innerText'] = dom.children[1].innerText;
-      }
-      this.selDomByCtrl = [];
-      this.selItemByCtrl= [];
-    }
   }
   created() {
   }
   mounted() {
-    // this.drag(this.dragPreviousDom);
+    this.dragDivLR();
+    this.dragDivB();
   }
-
+  dragDivLR() {
+    let domRight: any = document.querySelector(".right");
+    let domLeft: any = document.querySelector(".left");
+    swiper.swiper('.right-border', (e: E) =>{
+      this.domLeftOffsetW= domLeft['offsetWidth'];
+      this.domRightOffsetL= domRight['offsetLeft'];
+    }, (e: E) => {
+      if(Math.abs(e.startX - this.domLeftOffsetW) <= 2) {
+        domLeft.style.width = this.domLeftOffsetW + e.disX + 'px';
+        domRight.style.marginLeft = this.domRightOffsetL + e.disX + 'px';
+      }
+    }, true)
+  }
+  dragDivB() {
+    let domB: any = document.querySelector('.right-bottom');
+    swiper.swiper('.right-bottom', () => {
+      this.bottomDivH = domB.offsetHeight;
+      this.bottomDivT = domB.offsetTop;
+    }, (e: E) => {
+      if(Math.abs(e.startY - this.bottomDivT) <= 2) {
+        domB.style.height = this.bottomDivH - e.disY + 'px';
+      }
+    }, false)
+  }
   // 组件方法也可以直接声明为实例的方法
   // onClick (): void {
   // }
+}
+export interface E {
+  e: MouseEvent;
+  disX?: number;
+  disY?: number;
+  startX?: number;
+  startY?: number;
 }
